@@ -38,7 +38,9 @@
 			<td th:text = ${pessoa.id}></td>
 			<td th:text = ${pessoa.nome}></td>
 			<td th:text = ${pessoa.sobrenome}></td>
+			<td th:text = ${pessoa.idade}></td>
 			<td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
+			<td><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
 		</tr>
 	</table>
 	
