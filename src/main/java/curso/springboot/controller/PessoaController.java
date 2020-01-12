@@ -116,6 +116,19 @@ public class PessoaController {
 		return modelAndView;
 	}
 	
+	@GetMapping("/removertelefone/{idtelefone}")
+	public ModelAndView excluirtelefone(@PathVariable("idtelefone") Long idtelefone) {		
+		
+		Pessoa pessoa = telefoneRepository.findById(idtelefone).get().getPessoa();
+		
+		telefoneRepository.deleteById(idtelefone);
+		ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
+		modelAndView.addObject("pessoaObj", pessoa);
+		modelAndView.addObject("telefones", telefoneRepository.getTelefones(pessoa.getId()));
+		
+		return modelAndView;
+	}
+	
 }
 
 
