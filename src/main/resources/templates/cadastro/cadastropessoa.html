@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	
 	<!--Import Google Icon Font-->
@@ -31,8 +31,20 @@
 		<input class="waves-effect waves-light btn" type="submit" value="Salvar">
 	</form>
 	
+	<br />
+	<br />
 	<a href="/listapessoas">Listar Pessoas</a>
+	<br />
+	<br />
 	
+	<form action="pesquisarpessoa" method="post">
+		<label>Pesquisa por nome:</label>
+		<input name="nomePesquisa">
+		<input class="waves-effect waves-light btn" type="submit" value="Buscar">
+	</form>
+	
+	<br />
+	<br />
 	<table>
 		<tr th:each = "pessoa : ${pessoas}">
 			<td th:text = ${pessoa.id}></td>
