@@ -10,42 +10,79 @@
     
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>            
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+    
+    <style type="text/css">
+    	form input[type=submit]{
+    		color: white;
+    	}
+    </style>            
 </head>
 <body>
-	<h1>Cadastro Pessoa</h1>
+	<h3>Spring Boot + Thymeleaf + Material Design Lite</h3>
+	<br />		
+	<h5>Cadastro Pessoa</h5>
+	<br />	
 	
-	<form action="salvarpessoa" method="post" th:object="${pessoaObj}">
-		<label>ID:</label>
-		<input name="id" th:field="*{id}" readonly="readonly">
-		
-		<label>Nome</label>
-		<input name="nome" th:field="*{nome}">
-		
-		<label>Sobrenome</label>
-		<input name="sobrenome"th:field="*{sobrenome}">
-		
-		<label>Idade</label>
-		<input name="idade" th:field="*{idade}">
-		
-		<input class="waves-effect waves-light btn" type="submit" value="Salvar">
-	</form>
+	<div class="row">
+		<form id="idFormPessoa" action="salvarpessoa" method="post" th:object="${pessoaObj}" class="col s12">
+			<div class="row">
+        		<div class="input-field col s6">
+					<label for="idId" class="active">ID:</label>
+					<input name="id" th:field="*{id}" readonly="readonly" id="idId" class="validade">
+				</div>
+				<div class="input-field col s6">
+					<label for="idNome" class="active">Nome</label>
+					<input name="nome" th:field="*{nome}" id="idNome" class="validade">
+				</div>
+			</div>			
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="idSobrenome" class="active">Sobrenome</label>
+					<input name="sobrenome"th:field="*{sobrenome}" id="idSobrenome" class="validade">
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="idIdade" class="active">Idade</label>
+					<input name="idade" th:field="*{idade}" id="idIdade" class="validade">
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s6">
+					<input class="waves-effect waves-light btn" type="submit" value="Salvar">
+					<button class="waves-effect waves-light btn" onclick="document.getElementById('idFormPessoa').reset();">Novo</button>
+				</div>
+			</div>
+		</form>
+	</div>
 	
 	<br />
 	<br />
-	<a href="/listapessoas">Listar Pessoas</a>
+	
+	<div class="row">
+		<form action="pesquisarpessoa" method="post">
+			<div class="input-field col s12">
+				<label for="idNomePesquisa" class="active">Pesquisa por nome:</label>
+				<input name="nomePesquisa" id="idNomePesquisa" class="validate">
+				<input class="waves-effect waves-light btn" type="submit" value="Buscar">
+				<a class="waves-effect waves-light btn" href="/listapessoas">Listar Pessoas</a>
+			</div>
+		</form>
+	</div>
+	
 	<br />
 	<br />
 	
-	<form action="pesquisarpessoa" method="post">
-		<label>Pesquisa por nome:</label>
-		<input name="nomePesquisa">
-		<input class="waves-effect waves-light btn" type="submit" value="Buscar">
-	</form>
-	
-	<br />
-	<br />
-	<table>
+	<table class="striped">
+		<thead>
+			<th>Id</th>
+			<th>Nome</th>
+			<th>Sobrenome</th>
+			<th>Idade</th>
+			<th>Editar</th>
+			<th>Excluir</th>
+		</thead>
 		<tr th:each = "pessoa : ${pessoas}">
 			<td th:text = ${pessoa.id}></td>
 			<td th:text = ${pessoa.nome}></td>
