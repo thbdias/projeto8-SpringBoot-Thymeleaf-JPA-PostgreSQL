@@ -1,9 +1,15 @@
 package curso.springboot.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +44,27 @@ public class PessoaController {
 	}	
 	
 	//   **/salvarpessoa => ignora o que está antes e intercepta salvarpessoa 
+	// @Valid -> fazer validações que estao nos atributos da entidade Pessoa
+	// BindingResult -> retorna as mensagens de validação
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
-	public ModelAndView salvar(Pessoa pessoa) {
+	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			ModelAndView modelAndViewErro = new ModelAndView("cadastro/cadastroPessoa"); //mostre essa tela
+			Iterable<Pessoa> pessoasIterable = pessoaRepository.findAll();
+			modelAndViewErro.addObject("pessoas", pessoasIterable);
+			modelAndViewErro.addObject("pessoaObj", pessoa); //dados já preenchidos de volta a tela
+			
+			List<String> msg = new ArrayList<String>();
+			
+			for (ObjectError objectError : bindingResult.getAllErrors()) {
+				msg.add(objectError.getDefaultMessage()); //getDefaultMessage -> vem das validacoes dos att das entidades
+			}
+			
+			modelAndViewErro.addObject("msg", msg);
+			return modelAndViewErro;
+		}
+		
 		pessoaRepository.save(pessoa);
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastroPessoa"); //mostre essa tela		
