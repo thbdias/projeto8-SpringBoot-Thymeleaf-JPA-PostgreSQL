@@ -2,8 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>            
 </head>
 <body>
 	<h1>Cadastro Pessoa</h1>
@@ -18,7 +25,7 @@
 		<label>Idade</label>
 		<input name="idade">
 		
-		<input type="submit" value="Salvar">
+		<input class="waves-effect waves-light btn" type="submit" value="Salvar">
 	</form>
 	
 	<a href="/listapessoas">Listar Pessoas</a>
@@ -31,6 +38,10 @@
 		</tr>
 	</table>
 	
+	
+	<!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <script type="text/javascript" src="materialize/js/materialize.js"></script>    
 </body>
 </html>
 
