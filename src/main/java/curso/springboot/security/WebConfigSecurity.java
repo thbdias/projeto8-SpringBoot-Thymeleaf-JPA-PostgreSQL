@@ -1,5 +1,6 @@
 package curso.springboot.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +16,11 @@ import org.springframework.util.AntPathMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private ImplementacaoUserDetailsService implementacaoUserDetailsService;
+	
+	
 
 	@Override //configura as solicitaçoes de acesso por Http
 	protected void configure(HttpSecurity http) throws Exception {
@@ -30,12 +36,16 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	
 	@Override //cria autenticacao do usuario com banco de dados ou em memoria
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+		
+		auth.userDetailsService(implementacaoUserDetailsService)
+		.passwordEncoder(new BCryptPasswordEncoder());
+		
+		/* //auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
 		auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
 		.withUser("admin")
-//		.password("123")
+		//.password("123")
 		.password("$2a$10$4FwR2ejZNUQVO6VOQJiHz.gANug3ykY/pV1Gb/zF.3NGoey.aYZmy")
-		.roles("ADMIN");
+		.roles("ADMIN");*/
 	}
 	
 	@Override //ignora URL especifica
