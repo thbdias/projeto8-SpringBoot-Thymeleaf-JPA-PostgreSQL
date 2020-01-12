@@ -28,6 +28,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 		.disable() //desativa as configuracoes padrao de memoria
 		.authorizeRequests() //permitir restringir acessos
 		.antMatchers(HttpMethod.GET, "/").permitAll() //Qualquer usuario acessa a pagina inicial
+		.antMatchers(HttpMethod.GET, "/cadastroPessoa").hasAnyRole("ADMIN") //so pode acessar essa pagina quem possui regra ADMIN
 		.anyRequest().authenticated()
 		.and().formLogin().permitAll() //permite qualquer usuario
 		.and().logout() //mapeia URL de Logout e invalida usuário autenticado
