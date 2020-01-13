@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -47,7 +48,8 @@
 					<input name="sobrenome"th:field="*{sobrenome}" id="idSobrenome" class="validade">
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">  	<!-- esse campo aparece para quem tem esse ROLE -->		
+			<!--<div class="row" sec:authorize="hasAnyRole('ROLE_SECRETARIO', 'ROLE_TECNICO')">-->	<!-- esse campo aparece para possui ROLE_ADMIN ou ROLE_TECNICO -->
 				<div class="input-field col s12">
 					<label for="idIdade" class="active">Idade</label>
 					<input name="idade" th:field="*{idade}" id="idIdade" class="validade">
