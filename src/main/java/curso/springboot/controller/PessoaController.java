@@ -110,7 +110,7 @@ public class PessoaController {
 	}
 	
 	@PostMapping("**/pesquisarpessoa")
-	public ModelAndView pesquisar(@RequestParam("nomePesquisa") String nomePesquisa) {
+	public ModelAndView pesquisar(@RequestParam("nomePesquisa") String nomePesquisa, @RequestParam("pesquisaSexo") String pesquisaSexo) {
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastroPessoa");
 		modelAndView.addObject("pessoas", pessoaRepository.findPessoByName(nomePesquisa));
 		modelAndView.addObject("pessoaObj", new Pessoa());
