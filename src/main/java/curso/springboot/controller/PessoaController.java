@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import curso.springboot.model.Pessoa;
 import curso.springboot.model.Telefone;
 import curso.springboot.repository.PessoaRepository;
+import curso.springboot.repository.ProfissaoRepository;
 import curso.springboot.repository.TelefoneRepository;
 
 @Controller
@@ -37,6 +38,11 @@ public class PessoaController {
 	
 	@Autowired
 	ReportUtil reportUtil;
+	
+	@Autowired
+	ProfissaoRepository profissaoRepository;
+	
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastroPessoa")
 	public ModelAndView inicio() {
@@ -45,6 +51,8 @@ public class PessoaController {
 		
 		Iterable<Pessoa> pessoasIterable = pessoaRepository.findAll();
 		modelAndView.addObject("pessoas", pessoasIterable);
+		
+		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		
 		return modelAndView;
 	}	
@@ -70,6 +78,7 @@ public class PessoaController {
 			}
 			
 			modelAndViewErro.addObject("msg", msg);
+			modelAndViewErro.addObject("profissoes", profissaoRepository.findAll());
 			return modelAndViewErro;
 		}
 		
@@ -79,6 +88,7 @@ public class PessoaController {
 		Iterable<Pessoa> pessoasIterable = pessoaRepository.findAll();
 		modelAndView.addObject("pessoas", pessoasIterable);
 		modelAndView.addObject("pessoaObj", new Pessoa());
+		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		
 		return modelAndView;
 	}
@@ -100,6 +110,7 @@ public class PessoaController {
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastroPessoa");
 		modelAndView.addObject("pessoaObj", pessoa.get());
+		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		
 		return modelAndView;
 	}

@@ -56,7 +56,7 @@
 					</div>
 					<div class="input-field col s6">
 						<label for="idSexoPessoa" class="active">Sexo</label>
-						<select class="browser-default" th:field="*{sexopessoa}">
+						<select class="browser-default" th:field="*{sexopessoa}" id="idSexoPessoa">
 							<option value="" disabled selected>Choose your option</option>
 							<option value="MASCULINO" th:text="Masculino" />
 							<option value="FEMININO" th:text="Feminino"/>
@@ -65,9 +65,17 @@
 				</div>
 				<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">  	<!-- esse campo aparece para quem tem esse ROLE -->		
 				<!--<div class="row" sec:authorize="hasAnyRole('ROLE_SECRETARIO', 'ROLE_TECNICO')">-->	<!-- esse campo aparece para possui ROLE_ADMIN ou ROLE_TECNICO -->
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<label for="idIdade" class="active">Idade</label>
 						<input name="idade" th:field="*{idade}" id="idIdade" class="validade">
+					</div>
+					<div class="input-field col s6">
+						<label for="idProfissao" class="active">Profissão</label>
+						<select class="browser-default" th:field="*{profissao}" id="idProfissao">
+						
+							<option th:each="p : ${profissoes}" th:value="${p.id}" th:text="${p.nome}" />
+							
+						</select>
 					</div>
 				</div>
 				<div class="row">
